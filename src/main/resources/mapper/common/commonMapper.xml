@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ksg.test.mapper.common.commonMapper">
+	
+	<select id="login_Post" parameterType="java.util.HashMap" resultType="com.ksg.test.common.domain.CommonVO">
+		SELECT ID,PW,ADDRESS,EMAIL,PHONE
+		FROM MEMBERINFO
+		WHERE ID = #{TXT_ID}
+		AND PW = #{TXT_PW}
+		AND TXT_PW_SHA = #{TXT_PW_SHA}
+	
+	</select>
+	
+</mapper>
