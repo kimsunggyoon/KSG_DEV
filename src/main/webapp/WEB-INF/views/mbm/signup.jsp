@@ -1,29 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		$("#btnLogout").hide();
 		if($("#PW").val() != $("#PW_CK").val()){
 			$("#PW_MENT").val("비밀번호가 다릅니다여");
 		}
 	})
 	
 	
-	function fn_Id_Validation(val){
+	function fn_Id_Validation(){
 		var exp = "^[a-zA-Z0-9]*$";
-		var check = true;
-		if(!val.match(exp)){
-			check = false;
-			
-		}
+		var id = $("#ID").val();
+		var check = new RegExp(exp);
 		console.log("id 체크");
-		console.log(check);
-		return check;
+		console.log(check.test(id));
+		return check.test(id);
 	}
 	
 	function fn_Pw_Validation(){
@@ -32,15 +25,35 @@
 			check = false;
 		}
 		console.log("pw 체크");
+		console.log(check);
 
+		return check;
+	}
+	function fn_inputValidation(){
+		var id = $("#ID").val();
+		var pw = $("#PW").val();
+		var pw_ck = $("#PW_CK").val();
+		var email = $("#EMAIL").val();
+		var address = $("#ADDRESS").val();
+		var check = true;
+		if(id=='' || pw==''||pw_ck=''||email==''||address==''){
+			check = false;
+		}
 		return check;
 	}
 	
 	function fn_signUp(){
 		var pw_ck = fn_Pw_Validation();
-		
-		if(pw_ck == false){
+		var id_ck = fn_Id_Validation();
+		var ip_ck = fn_inputValidation();
+		if(!id_ck){
+			return alert("아이디 확인해라");
+		}
+		if(!pw_ck){
 			return alert("패스워드 확인해라");
+		}
+		if(!ip_ck){
+			return alert("모두 입력해라");
 		}
 		
 		$.ajax({
@@ -69,14 +82,16 @@
 		});
 	}
 	function fn_cancel(){
-		alert("취소");
+		location.href="/";
 	}
 	function fn_reset(){
-		alert("리셋");
+		$("#ID").val("");
+		$("#PW").val("");
+		$("#PW_CK").val("");
+		$("#EMAIL").val("");
+		$("#ADDRESS").val("");
 	}
 </script>
-</head>
-<body>
 	<div style="position:absolute; top:40%; left:40%;">
 		<table>
 			<tr>
@@ -122,5 +137,3 @@
 			</tr>
 		</table>
 	</div>
-</body>
-</html>

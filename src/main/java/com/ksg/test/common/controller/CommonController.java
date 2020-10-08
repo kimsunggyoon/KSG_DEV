@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ksg.test.common.config.Define.LayoutType;
 import com.ksg.test.common.domain.CommonVO;
 import com.ksg.test.common.dto.CommonDTO;
 import com.ksg.test.common.service.CommonService;
@@ -51,9 +52,10 @@ public class CommonController {
 	}
 	
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
-	public String go_Logout(HttpSession session) {
+	public String go_Logout(HttpSession session) throws Exception{
 		session.setAttribute(LOGIN, "");
-		return "login";
+		return service.getViewPath("login");
 		
 	}
+	
 }

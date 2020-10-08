@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
+import com.ksg.test.common.service.CommonService;
 import com.ksg.test.mbm.service.MbmService;
 
 /**
@@ -30,6 +31,9 @@ public class HomeController {
 	@Inject
 	private MbmService mbmService;
 	
+	@Inject
+	private CommonService cmService;
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 * @throws Exception 
@@ -38,7 +42,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) throws Exception {
 		List<?> mem_Info = mbmService.Select_Mem_Info();
 		model.addAttribute("MEMINFO", mem_Info);
-		return "login";
+		return cmService.getViewPath("login");
 	}
 	
 }

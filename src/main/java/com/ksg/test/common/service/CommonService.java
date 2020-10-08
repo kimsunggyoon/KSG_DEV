@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ksg.test.common.config.Define.LayoutType;
 import com.ksg.test.common.domain.CommonVO;
 import com.ksg.test.common.dto.CommonDTO;
 import com.ksg.test.common.persistence.CommonDAO;
@@ -54,5 +55,23 @@ public class CommonService {
 		}
 		logger.info("encodeSHA512" + SHA512_PW);
 		return SHA512_PW;
+	}
+	
+	
+	public String getViewPath(String path) throws Exception {
+		return getViewPath(path, LayoutType.DEFAULT);
+	}
+
+	public String getViewPath(String path, LayoutType layout) throws Exception {
+		if (path.startsWith("/")) {
+			path = path.substring(1);
+		}
+		if (layout == LayoutType.EMPTY) {
+			return "empty/" + path;
+		}
+		if (layout == LayoutType.BLANK) {
+			return "blank/" + path;
+		}
+		return path;
 	}
 }
