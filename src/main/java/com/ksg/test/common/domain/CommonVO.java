@@ -6,6 +6,7 @@ public class CommonVO {
 	String PW;
 	String EMAIL;
 	String ADDRESS;
+	String ADDRESS_NO;
 	String PHONE;
 
 	public String getID() {
@@ -32,12 +33,20 @@ public class CommonVO {
 	public void setADDRESS(String aDDRESS) {
 		ADDRESS = aDDRESS;
 	}
+	public String getADDRESS_NO() {
+		return ADDRESS_NO;
+	}
+	public void setADDRESS_NO(String aDDRESS_NO) {
+		ADDRESS_NO = aDDRESS_NO;
+	}
 	public String getPHONE() {
 		return PHONE;
 	}
 	public void setPHONE(String pHONE) {
 		PHONE = pHONE;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "CommonVO [ID=" + ID + ", PW=" + PW + ", EMAIL=" + EMAIL + ", ADDRESS=" + ADDRESS + ", PHONE=" + PHONE
