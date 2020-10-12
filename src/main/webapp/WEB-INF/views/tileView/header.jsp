@@ -21,8 +21,8 @@
 </script>
 
 <header class="navbar navbar-expand-lg navbar-light" style="border-bottom: 1px solid #f0f0f0;">
-	<a class="navbar-brand" href="#">
-		<img src="/resources/images/logo/main_logo.jpg" style="height: 100px;" class="d-inline-block align-top" loading="lazy">
+	<a class="navbar-brand" href="/main/main">
+		<img src="/resources/images/logo/main_logo.jpg" style="height: 100px;" class="d-inline-block align-top">
 	</a>
 	<h1>Title</h1>
 	<ul class="navbar-nav mr-auto">

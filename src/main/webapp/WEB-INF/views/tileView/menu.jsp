@@ -4,27 +4,11 @@
 		<a class="nav-link" href="#"></a>
 		<ul class="nav flex-column">
 			<li class="nav-item">
-				<a class="nav-link" href="#"></a>
+				<a class="nav-link" href="#">메뉴1</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#"></a>
 			</li>
 		</ul>
-		<a class="nav-link" href="#"></a>
-		<ul class="nav flex-column">
-			<li class="nav-item">
-				<a class="nav-link" href="#"></a>
-			</li>
-		</ul>
-		<a class="nav-link" href="#"></a>
-		<ul class="nav flex-column">
-			<li class="nav-item">
-				<a class="nav-link" href="#"></a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#"></a>
-			</li>
-		</ul>
-		<a class="nav-link" href="/main/main"></a>
 	</div>
 </nav>

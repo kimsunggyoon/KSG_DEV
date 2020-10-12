@@ -25,10 +25,14 @@ public class MainController {
 	@RequestMapping(value="/main",method=RequestMethod.GET)
 	public String go_main(HttpSession session , Model model) throws Exception {
 		logger.info("go_main IN");
-		CommonVO vo = (CommonVO) session.getAttribute(CommonController.LOGIN);
-		model.addAttribute("USER_ID", vo.getID());
+		try {
+			CommonVO vo = (CommonVO) session.getAttribute(CommonController.LOGIN);
+			model.addAttribute("USER_ID", vo.getID());
+			logger.info("go_main vo = "+vo);
+		} catch (Exception e) {
+			return cmService.getViewPath("login");
+		}
 		
-		logger.info("go_main vo = "+vo);
 		logger.info("go_main OUT");
 		return cmService.getViewPath("/main/main");
 	}

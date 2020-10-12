@@ -36,8 +36,8 @@ public class MbmController {
 	@RequestMapping(value="/signUp_POST", method=RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String,Object> signUp_POST(@RequestParam HashMap<String,Object> reqMap) throws Exception {
-		logger.debug("signUp_POST IN ");
-		logger.debug("signUp_POST reqMap : "+reqMap);
+		logger.info("signUp_POST IN ");
+		logger.info("signUp_POST reqMap : "+reqMap);
 		HashMap<String,Object> retMap = new HashMap();
 		HashMap<String,Object> resMap = new HashMap();
 		retMap.put("KEY", "");

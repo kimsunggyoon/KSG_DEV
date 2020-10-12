@@ -30,13 +30,21 @@ public class MbmService {
 	 *	회원가입 
 	 */
 	public HashMap<String,Object> signUp_POST(HashMap<String, Object> reqMap) throws Exception {
-		logger.debug("signUp_POST IN ");
-		logger.debug("signUp_POST reqMap : "+reqMap);
+		logger.info("signUp_POST IN ");
+		logger.info("signUp_POST reqMap : "+reqMap);
 		
 		HashMap<String,Object> retMap = new HashMap();
 		retMap.put("USERALERT","N");
+		String email = "";
+		if(reqMap.get("FRONT_EMAIL")==null) {
+			email = "";
+		}else {
+			
+			email = reqMap.get("FRONT_EMAIL")+"@"+reqMap.get("END_EMAIL");
+		}
+		reqMap.put("EMAIL", email);
 		reqMap.put("TXT_PW_SHA", cmService.encodeSHA512((String) reqMap.get("PW")));
-		
+		logger.info("이메일추가"+reqMap);
 		try {
 			
 			if(dao.signUp_POST(reqMap) < 0 ) {
