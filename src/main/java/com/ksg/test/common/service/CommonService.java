@@ -53,7 +53,6 @@ public class CommonService {
 			
 			e.getStackTrace();
 		}
-		logger.info("encodeSHA512" + SHA512_PW);
 		return SHA512_PW;
 	}
 	

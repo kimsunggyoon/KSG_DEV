@@ -2,6 +2,7 @@ package com.ksg.test.common.domain;
 
 public class CommonVO {
 	
+	String MEM_CD;
 	String ID;
 	String PW;
 	String EMAIL;
@@ -9,6 +10,12 @@ public class CommonVO {
 	String ADDRESS_NO;
 	String PHONE;
 
+	public String getMEM_CD() {
+		return MEM_CD;
+	}
+	public void setMEM_CD(String mEM_CD) {
+		MEM_CD = mEM_CD;
+	}
 	public String getID() {
 		return ID;
 	}

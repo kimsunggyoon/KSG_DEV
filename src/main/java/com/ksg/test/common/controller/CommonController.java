@@ -46,6 +46,7 @@ public class CommonController {
 			
 		}
 		session.setAttribute(LOGIN, voLogin);
+		session.setMaxInactiveInterval(60*5);
 		logger.info("login_Post OUT ");
 
 		return retMap;
@@ -53,7 +54,7 @@ public class CommonController {
 	
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public String go_Logout(HttpSession session) throws Exception{
-		session.setAttribute(LOGIN, "");
+		session.invalidate();
 		return service.getViewPath("login");
 		
 	}

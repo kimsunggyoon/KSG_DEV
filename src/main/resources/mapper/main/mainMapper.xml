@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ksg.test.mapper.main.mainMapper">
+
+	<insert id="uploadContent" parameterType="java.util.HashMap">
+		INSERT INTO ARTICLE_ITEM 
+		(
+			FILE_NM
+			,FILE_PATH
+			,FILE_SIZE
+			,REGISTRANT_ID
+			,REGISTRANT_DT
+			,USE_YN
+			,FILE_EXTENSION
+			,ARTICLE_CD
+		) 
+		VALUES
+		(
+			 #{FILE_NM}
+			,#{FILE_PATH}
+			,#{FILE_SIZE}
+			,#{REGISTRANT_ID}
+			,SYSDATE
+			,#{USE_YN}
+			,#{FILE_EXTENSION}
+			,#{ARTICLE_CD}
+		)
+	</insert>
+	
+	<insert id="insertArticle" parameterType="java.util.HashMap">
+		INSERT INTO ARTICLE
+		(
+			ART_SEQ
+			,ARTICLE_CD
+			,REGISTRANT_ID
+			,REGISTRANT_DT
+			,TITLE
+			,DESCRIPTION
+		) 
+		VALUES
+		(
+			ART_SEQ.NEXTVAL
+			,#{ARTICLE_CD}
+			,#{REGISTRANT_ID}
+			,SYSDATE
+			,#{TITLE}
+			,#{DESCRIPTION}
+		)
+	</insert>
+	
+	<select id="selectArticle" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT 
+			ART_SEQ
+			,ARTICLE_CD
+			,REGISTRANT_ID
+			,REGISTRANT_DT
+			,TITLE
+			,DESCRIPTION
+			,UPDATE_ID
+			,UPDATE_DT
+		FROM ARTICLE
+		WHERE REGISTRANT_ID = #{REGISTRANT_ID}
+		ORDER BY ART_SEQ
+	</select>
+	
+	<select id="selectFile" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT 
+			FILE_NM
+			,FILE_PATH
+			,FILE_SIZE
+			,REGISTRANT_ID
+			,REGISTRANT_DT
+			,USE_YN
+			,FILE_EXTENSION
+			,ARTICLE_CD
+		FROM ARTICLE_ITEM
+		WHERE REGISTRANT_ID = #{REGISTRANT_ID}
+		AND ARTICLE_CD = #{ARTICLE_CD}
+	</select>
+	
+	
+</mapper>

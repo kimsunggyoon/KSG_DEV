@@ -20,8 +20,12 @@ public class MbmDAO {
 		return session.insert(namespace+".signUp_POST",reqMap);
 	}
 
-	public List<?>Select_Mem_Info()throws Exception {
+	public List<HashMap<String,Object>>Select_Mem_Info()throws Exception {
 		return session.selectList(namespace+".Select_Mem_Info");
+	}
+
+	public int idCheck(HashMap<String, Object> reqMap) {
+		return session.selectOne(namespace+".idCheck",reqMap);
 	}
 	
 }

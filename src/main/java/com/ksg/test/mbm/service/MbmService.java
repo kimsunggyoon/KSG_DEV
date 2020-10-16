@@ -2,6 +2,7 @@ package com.ksg.test.mbm.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -35,16 +36,20 @@ public class MbmService {
 		
 		HashMap<String,Object> retMap = new HashMap();
 		retMap.put("USERALERT","N");
+		
 		String email = "";
+		
 		if(reqMap.get("FRONT_EMAIL")==null) {
 			email = "";
 		}else {
-			
 			email = reqMap.get("FRONT_EMAIL")+"@"+reqMap.get("END_EMAIL");
 		}
+		
 		reqMap.put("EMAIL", email);
 		reqMap.put("TXT_PW_SHA", cmService.encodeSHA512((String) reqMap.get("PW")));
-		logger.info("이메일추가"+reqMap);
+		String uuid = UUID.randomUUID().toString();
+		reqMap.put("MEM_CD", uuid);
+		logger.info("추가된 reqMap : "+reqMap);
 		try {
 			
 			if(dao.signUp_POST(reqMap) < 0 ) {
@@ -52,6 +57,7 @@ public class MbmService {
 				retMap.put("USERALERT","들어간거 없음");
 			}
 		} catch (Exception e) {
+			e.getStackTrace();
 			retMap.put("USERALERT","회원가입 실패");
 		}
 		logger.debug("signUp_POST OUT ");
@@ -61,12 +67,15 @@ public class MbmService {
 	/**
 	 *	회원정보 가져오기 
 	 */
-	public List<?> Select_Mem_Info() throws Exception{
+	public List<HashMap<String,Object>> Select_Mem_Info() throws Exception{
 		logger.debug("Select_Mem_Info IN");
-		List<?> retList = dao.Select_Mem_Info();
+		List<HashMap<String,Object>> retList = dao.Select_Mem_Info();
 		logger.debug("Select_Mem_Info IretList : "+retList);
 		
 		return retList;
 		
+	}
+	public int idCheck(HashMap<String, Object> reqMap) throws Exception{
+		return dao.idCheck(reqMap);
 	}
 }

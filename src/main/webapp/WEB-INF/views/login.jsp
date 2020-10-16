@@ -21,7 +21,6 @@
 	}
 	function fn_signIn(){
 		
-		console.log("로그인 들어옴");
 		var fData = $("#frm_login").serializeArray();
 		$.ajax({
 			url:'/common/login',

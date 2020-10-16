@@ -5,9 +5,10 @@
 
 <mapper namespace="com.ksg.test.mapper.mbm.mbmMapper">
 	<insert id="signUp_POST" parameterType="java.util.HashMap" >
-		INSERT INTO MEMBERINFO (MEM_NO ,ID, PW, EMAIL, ADDRESS,ADDRESS_NO, PHONE,TXT_PW_SHA)
+		INSERT INTO MEMBERINFO (MEM_NO,MEM_CD ,ID, PW, EMAIL, ADDRESS,ADDRESS_NO, PHONE,TXT_PW_SHA)
 		VALUES (
-			(SELECT NVL(MAX(MEM_NO),0) FROM MEMBERINFO)+1
+			MEM_SEQ.NEXTVAL
+			,#{MEM_CD}
 			,#{ID}
 			,#{PW}
 			,#{EMAIL}
@@ -22,5 +23,11 @@
 		SELECT *
 		FROM MEMBERINFO
 		ORDER BY MEM_NO ASC
+	</select>
+	
+	<select id="idCheck" parameterType="java.util.HashMap" resultType="Integer">
+		SELECT COUNT(ID) 
+		FROM MEMBERINFO
+		WHERE ID = #{ID}
 	</select>
 </mapper>

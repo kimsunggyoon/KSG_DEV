@@ -63,11 +63,10 @@
     <!-- Interceptor 설정 -->
     <interceptors>
         <interceptor>
-            <mapping path="/**"/>
-            <exclude-mapping path="/"/>
+            <mapping path="/**/*"/>
             <exclude-mapping path="/common/login"/>
             <exclude-mapping path="/mbm/signup"/>
-            <exclude-mapping path="/mbm/signUp_POST"/>
+            <exclude-mapping path="/mbm/idCheck"/>
             <beans:ref bean="Interceptor"/>
         </interceptor>
     </interceptors>
@@ -101,6 +100,23 @@
 	            <beans:prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">/error/attachFileOverSizeErr</beans:prop>
 	        </beans:props>
 	    </beans:property>
+	</beans:bean>
+
+	<!-- aop bean... --> 
+	<beans:bean id="sampleAopBean" class="com.ksg.test.aop.SampleAopBean"> 
+		<beans:property name="message" value="this is AOP bean!" /> 
+	</beans:bean> 
+	
+	<beans:bean id="sampleMethodAdvice" class="com.ksg.test.aop.SampleMethodAdvice" /> 	
+	
+	<beans:bean id="proxyFactoryBean" class="org.springframework.aop.framework.ProxyFactoryBean"> 
+		<beans:property name="target" ref="sampleAopBean"/> 
+		
+		<beans:property name="interceptorNames"> 
+			<beans:list> 
+				<beans:value>sampleMethodAdvice</beans:value> 
+			</beans:list> 
+		</beans:property> 
 	</beans:bean>
 
 	

@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <script type="text/javascript">
-
+	var ID_CHECK = false;
+	
 	$(document).ready(function(){
 		$("#btnLogout").hide();
+
+		$("#ID").blur(function(){
+			return fn_idCheck();
+		});
 		
 		$("#EMAIL_CHOICE").change(function(){
 			if($("#EMAIL_CHOICE").val() == "직접입력"){
@@ -25,9 +30,29 @@
 		$("#reset").click(function(){
 			fn_reset();
 		})
-	})
-	
-	
+	});
+	function fn_idCheck(){
+		var id = $("#ID").val();
+		console.log("아디 체크");
+		console.log(id);
+		$.ajax({
+			url :'/mbm/idCheck',
+			data : {"ID":id},
+			dataType :'json',
+			type :'POST',
+			success:function(data){
+				console.log("data");
+				console.log(data);
+				if(data.KEY == "OK"){
+					$("#ID_MENT").text("중복있어요");
+					ID_CHECK = false;
+				}else{
+					$("#ID_MENT").text("");
+					ID_CHECK = true;
+				}
+			}
+		});
+	}
 	function fn_Id_Validation(){
 		var exp = "[a-zA-Z0-9]{4,15}";
 		var id = $("#ID").val();
@@ -48,7 +73,6 @@
 		}
 		return check;
 	}
-	
 	function pw_ck(){
 		if(!fn_Pw_Validation()){
 			$("#PW_MENT").text("비밀번호가 다릅니다여");
@@ -90,6 +114,9 @@
 		if(!ph_ck){
 			return alert("핸드폰번호를 확인햐");
 		}
+		if(!ID_CHECK){
+			return alert("아이디 확인햐");
+		}
 		if(email_choice == "직접입력"){
 			if($("#END_EMAIL").val() == "직접입력"){
 				return alert("이메일을 확인하세요");
@@ -100,26 +127,18 @@
 		console.log("폼데이타");
 		console.log(frmData);
 		$.ajax({
-			url :'/mbm/signUp_POST',
+			url :'/mbm/signup',
 			data : frmData,
-// 				"ID" : $("#ID").val(),
-// 				"PW" : $("#PW").val(),
-// 				"EMAIL" : $("#EMAIL").val()+"@"+$("#email_domain").val(),
-// 				"ADDRESS" : $("#ADDRESS").val(),
-// 				"ADDRESS_NO" : $("#ADDRESS_NO").val(),
-// 				"PHONE" : $("#PHONE").val()
-			
 			dataType :'json',
 			type :'POST',
 			success:function(data){
 				if(data.KEY == "OK"){
+					console.log(data);
 					alert("회원가입 성공");
 					window.location.href="/";
 				}else{
 					alert(data.USERALERT);
 				}
-				
-					
 			}
 			
 		});
@@ -134,9 +153,10 @@
 			$("#ID").val("");
 			$("#PW").val("");
 			$("#PW_CK").val("");
-			$("#EMAIL").val("");
+			$("#FRONT_EMAIL").val("");
 			$("#ADDRESS").val("");
 			$("#ADDRESS_NO").val("");
+			$("#PHONE").val("");
 			$("#EMAIL_CHOICE").val("google.com");
 			$("#END_EMAIL").val("google.com");
 		}
@@ -166,11 +186,12 @@
 				<tr>
 					<th>아이디</th>
 					<td><input type="text" id="ID" name="ID" placeholder="4~15자리의 영문,숫자"></td>
-					<td></td>
+					<td><span id="ID_MENT" style="color:red;"></span></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
 					<td><input type="password" id="PW" name="PW" onkeyup="javascript:pw_ck()"></td>
+					<td></td>
 					<td></td>
 				</tr>
 				<tr>
