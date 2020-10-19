@@ -10,6 +10,7 @@
 		(
 			FILE_NM
 			,FILE_PATH
+			,FULL_PATH
 			,FILE_SIZE
 			,REGISTRANT_ID
 			,REGISTRANT_DT
@@ -21,6 +22,7 @@
 		(
 			 #{FILE_NM}
 			,#{FILE_PATH}
+			,#{FULL_PATH}
 			,#{FILE_SIZE}
 			,#{REGISTRANT_ID}
 			,SYSDATE

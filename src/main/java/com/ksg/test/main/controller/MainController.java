@@ -80,7 +80,7 @@ public class MainController {
 		
 		List<MultipartFile> mf = req.getFiles("file[]");
         
-		SimpleDateFormat format = new SimpleDateFormat ( "yyyy년 MM월dd일 HH시mm분ss초");
+		SimpleDateFormat format = new SimpleDateFormat ( "yyyy년MM월dd일HH시mm분ss초");
 		Date date = new Date();
 		
 		for (int i = 0; i < mf.size(); i++) {
@@ -88,7 +88,12 @@ public class MainController {
 			String today = format.format(date);
 			String originName = i+","+today+vo.getID()+"_"+mf.get(i).getOriginalFilename();
 			String FILE_EXTENSION = originName.substring(originName.lastIndexOf(".")+1);
-			String FILE_PATH = "D:\\upload";
+			String FILE_PATH = "E:\\upload";
+			String FULL_PATH = FILE_PATH + "\\" + originName;
+			FULL_PATH = FULL_PATH.trim();
+			
+			logger.info("FULL_PATH : "+FULL_PATH);
+			
 			long FILE_SIZE = mf.get(i).getSize();
 			File file = new File(FILE_PATH+"/"+originName);
 			try {
@@ -104,6 +109,7 @@ public class MainController {
 			map.put("ARTICLE_CD",article_cd );
 			map.put("REGISTRANT_ID", registrant_id);
 			map.put("FILE_PATH", FILE_PATH);
+			map.put("FULL_PATH", FULL_PATH);
 			map.put("FILE_SIZE", FILE_SIZE);
 			map.put("FILE_EXTENSION", FILE_EXTENSION);
 			map.put("USE_YN", "Y");
@@ -131,16 +137,6 @@ public class MainController {
         logger.info("uploadContent OUT");
         return retMap;
 	}
-	@RequestMapping(value="/articleUpload",method=RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String,Object> articleUpload(@RequestParam HashMap<String,Object> reqMap,Model model){
-		
-		logger.info("articleUpload IN");
-		logger.info("articleUpload reqMap : "+reqMap);
-		HashMap<String,Object> retMap = new HashMap();
-		return retMap;
-		
-	}
 	
 	@RequestMapping(value="write",method=RequestMethod.GET)
 	public String write(HttpSession session ,Model model) throws Exception {
@@ -149,7 +145,7 @@ public class MainController {
 		model.addAttribute("USERINFO",vo );
 		model.addAttribute("UUID",uuid );
 		
-		return cmService.getViewPath("/articles/write");
+		return cmService.getViewPath("/article/write");
 		
 	}
 }

@@ -23,8 +23,6 @@ public class Interceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute(CommonController.LOGIN);
-		logger.info("session : "+session);
-		logger.info("obj : "+obj);
 		if(obj == null || session == null) {
 			response.sendRedirect("/");
 			return false;

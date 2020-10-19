@@ -31,11 +31,12 @@
 			</tr>
 			<c:forEach var="item" items="${ART_LIST}" varStatus="status">
 				<tr>
-					<th><c:out value="${status.index}"></c:out></th>
-					<th><c:out value="${item.ART_SEQ}"></c:out></th>
-					<th><c:out value="${item.TITLE}"></c:out></th>
-					<th><c:out value="${item.REGISTRANT_ID}"></c:out></th>
-					<th><c:out value="${item.REGISTRANT_DT}"></c:out></th>
+					<td><c:out value="${status.index}"></c:out></td>
+					<td><c:out value="${item.ART_SEQ}"></c:out></td>
+					<td><a href="/article/articleView/${item.ART_SEQ}"><c:out value="${item.TITLE}"></c:out></a></td>
+					<td><c:out value="${item.REGISTRANT_ID}"></c:out></td>
+					<td><c:out value="${item.REGISTRANT_DT}"></c:out></td>
+					
 				</tr>
 			</c:forEach>
 		</table>
