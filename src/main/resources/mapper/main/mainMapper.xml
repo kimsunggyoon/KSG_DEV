@@ -8,9 +8,11 @@
 	<insert id="uploadContent" parameterType="java.util.HashMap">
 		INSERT INTO ARTICLE_ITEM 
 		(
-			FILE_NM
+			FILE_SEQ
+			,FILE_NM
 			,FILE_PATH
 			,FULL_PATH
+			,FILE_TYPE
 			,FILE_SIZE
 			,REGISTRANT_ID
 			,REGISTRANT_DT
@@ -20,9 +22,11 @@
 		) 
 		VALUES
 		(
-			 #{FILE_NM}
+			FILE_SEQ.NEXTVAL
+			,#{FILE_NM}
 			,#{FILE_PATH}
 			,#{FULL_PATH}
+			,#{FILE_TYPE}
 			,#{FILE_SIZE}
 			,#{REGISTRANT_ID}
 			,SYSDATE
@@ -64,24 +68,7 @@
 			,UPDATE_ID
 			,UPDATE_DT
 		FROM ARTICLE
-		WHERE REGISTRANT_ID = #{REGISTRANT_ID}
 		ORDER BY ART_SEQ
 	</select>
-	
-	<select id="selectFile" parameterType="java.util.HashMap" resultType="java.util.HashMap">
-		SELECT 
-			FILE_NM
-			,FILE_PATH
-			,FILE_SIZE
-			,REGISTRANT_ID
-			,REGISTRANT_DT
-			,USE_YN
-			,FILE_EXTENSION
-			,ARTICLE_CD
-		FROM ARTICLE_ITEM
-		WHERE REGISTRANT_ID = #{REGISTRANT_ID}
-		AND ARTICLE_CD = #{ARTICLE_CD}
-	</select>
-	
 	
 </mapper>

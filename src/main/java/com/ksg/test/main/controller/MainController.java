@@ -79,20 +79,24 @@ public class MainController {
 		HashMap<String,Object> resMap = new HashMap<String,Object>();
 		
 		List<MultipartFile> mf = req.getFiles("file[]");
-        
-		SimpleDateFormat format = new SimpleDateFormat ( "yyyy년MM월dd일HH시mm분ss초");
+		
+        String[] ty = req.getParameterValues("type[]");
+        logger.info("ty : "+ty);
+		SimpleDateFormat format = new SimpleDateFormat ( "yyyyMMdd_HHmmss");
 		Date date = new Date();
 		
 		for (int i = 0; i < mf.size(); i++) {
 			
 			String today = format.format(date);
-			String originName = i+","+today+vo.getID()+"_"+mf.get(i).getOriginalFilename();
+			String originName = i+"_"+today+"_"+vo.getID()+"_"+mf.get(i).getOriginalFilename();
 			String FILE_EXTENSION = originName.substring(originName.lastIndexOf(".")+1);
-			String FILE_PATH = "E:\\upload";
-			String FULL_PATH = FILE_PATH + "\\" + originName;
+			String FILE_PATH = "C:/upload/";
+			String FULL_PATH = FILE_PATH + originName;
 			FULL_PATH = FULL_PATH.trim();
-			
 			logger.info("FULL_PATH : "+FULL_PATH);
+			
+			String FILE_TYPE = ty[i]; 
+			FILE_TYPE = FILE_TYPE.substring(0,FILE_TYPE.indexOf("/"));
 			
 			long FILE_SIZE = mf.get(i).getSize();
 			File file = new File(FILE_PATH+"/"+originName);
@@ -112,6 +116,7 @@ public class MainController {
 			map.put("FULL_PATH", FULL_PATH);
 			map.put("FILE_SIZE", FILE_SIZE);
 			map.put("FILE_EXTENSION", FILE_EXTENSION);
+			map.put("FILE_TYPE", FILE_TYPE);
 			map.put("USE_YN", "Y");
 			
 			resMap = service.uploadContent(map);

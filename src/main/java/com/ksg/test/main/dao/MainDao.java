@@ -29,10 +29,5 @@ public class MainDao {
 		return session.selectList(namespace+".selectArticle",reqMap);
 	}
 
-	public List<?> selectFile(HashMap<String, Object> reqMap) throws Exception {
-		return session.selectList(namespace+".selectFile",reqMap);
-	}
-	
-	
 	
 }

@@ -1,5 +1,6 @@
 package com.ksg.test.article.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
+import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,13 +51,44 @@ public class ArticleController {
 		map.put("ARTICLE_CD", artMap.get("ARTICLE_CD"));
 		
 		List<?> fileList = service.getFileList(map);
+		JSONArray jarr = new JSONArray();
+		
+		for (int i = 0; i < fileList.size(); i++) {
+			jarr.put(fileList.get(i));
+			
+		}
+		logger.info("ArticleView arr : "+jarr);
 		
 		model.addAttribute("USERINFO",vo);
 		model.addAttribute("ARTICLE",artMap); 
 		model.addAttribute("FILELIST",fileList); 
+		model.addAttribute("FILE_LIST_ARR",jarr); 
 		
 		logger.info("ArticleView OUT");
 		return cmService.getViewPath("/article/articleView");
 	}
+	
+	@RequestMapping(value="update",method=RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String,Object> file_Update(@RequestParam HashMap<String,Object> reqMap,Model model) throws Exception{
+		logger.info("file_Update IN");
+		logger.info("file_Update req : "+reqMap);
+
+		HashMap<String,Object> retMap = new HashMap<String,Object>();
+		retMap.put("KEY", "");
+		
+		try {
+			int result = service.fileDelete(reqMap);
+			retMap.put("KEY", "OK");
+		} catch (Exception e) {
+			retMap.put("USERALERT", "파일 삭제 실패");
+			
+		}
+		
+		
+		
+		return retMap;
+	}
+	
 	
 }

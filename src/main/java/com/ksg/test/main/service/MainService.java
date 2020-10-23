@@ -52,14 +52,8 @@ public class MainService {
 		return retMap;
 	}
 
-
 	public List<?> selectArticle(HashMap<String,Object> reqMap) throws Exception {
 		return dao.selectArticle(reqMap);
 	}
 
-
-	public List<?> selectFile(HashMap<String, Object> reqMap) throws Exception{
-		return dao.selectFile(reqMap);
-	}
-	
 }

@@ -11,22 +11,26 @@
 			}
 		})
 		$("#file_upload").change(function(){
-			console.log("file change")
 			fileBuffer = [];
 	        const target = document.getElementsByName('files[]');
-	        console.log(target[0].files)
 	        Array.prototype.push.apply(fileBuffer, target[0].files);
 	        var html = '';
 	        $.each(target[0].files, function(index, file){
+	        	var type = file.type;
+	        	type = type.substr(0,type.indexOf("/"));
 	            const fileName = file.name;
 	            html += '<div class="file">';
-	            html += '<img style="width:400px" src="'+URL.createObjectURL(file)+'">'
+	            if(type == "image"){
+	            	html += '<img style="width:400px" src="'+URL.createObjectURL(file)+'">'
+	            }else if (type == "video"){
+	            	html += '<video style="width:400px" src="'+URL.createObjectURL(file)+'" controls>지원하지 않는 브라우저</video>'
+	            }
 	            html += '<span>'+fileName+'</span>';
 	            html += '<a href="#" id="removeImg">╳</a>';
 	            html += '</div>';
 	            const fileEx = fileName.slice(fileName.indexOf(".") + 1).toLowerCase();
-	            if(fileEx != "jpg" && fileEx != "png" &&  fileEx != "gif" &&  fileEx != "bmp" && fileEx != "wmv" && fileEx != "mp4" && fileEx != "avi"){
-	                alert("파일은 (jpg, png, gif, bmp, wmv, mp4, avi) 형식만 등록 가능합니다.");
+	            if(fileEx != "jpg" && fileEx != "ogv" && fileEx != "png" &&  fileEx != "gif" && fileEx != "mp4" && fileEx != "avi"){
+	                alert("파일은 (jpg, ogv, png, gif, mp4, avi) 형식만 등록 가능합니다.");
 	                resetFile();
 	                return false;
 	            }
@@ -43,7 +47,6 @@
 		var TITLE = $("#TITLE").val();
 		var DESCRIPTION = $("#DESCRIPTION").val();
 
-		console.log(typeof data);
     	const target = document.getElementsByName('files[]');
 		var formdata=new FormData();
 		formdata.append("ACTICLE_CD",UUID);
@@ -52,8 +55,8 @@
 		formdata.append("DESCRIPTION",DESCRIPTION);
 		$.each(target[0].files, function(index, file){
 			formdata.append("file[]",file);
+			formdata.append("type[]",file.type);
 		});
-	    
 	    $.ajax({
 	        url : "/main/fileUpload",
 	        data : formdata,

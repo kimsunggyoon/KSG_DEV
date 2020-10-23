@@ -22,4 +22,8 @@ public class ArticleDAO {
 	public List<?> getFileList(HashMap<String, Object> map) throws Exception{
 		return session.selectList(namespace+".getFileList",map);
 	}
+
+	public int fileDelete(HashMap<String, Object> reqMap) throws Exception{
+		return session.delete(namespace+".fileDelete",reqMap);
+	}
 }

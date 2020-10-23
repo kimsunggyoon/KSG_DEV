@@ -17,14 +17,16 @@
 			,ART_SEQ
 		FROM ARTICLE
 		WHERE ART_SEQ = #{ART_SEQ}
-		AND REGISTRANT_ID = #{REGISTRANT_ID}
+		ORDER BY ART_SEQ
 	</select>
 	
 	<select id="getFileList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
 		SELECT 
-			FILE_NM
+			FILE_SEQ
+			,FILE_NM
 			,FILE_PATH
 			,FULL_PATH
+			,FILE_TYPE
 			,FILE_SIZE
 			,REGISTRANT_ID
 			,REGISTRANT_DT
@@ -32,10 +34,13 @@
 			,FILE_EXTENSION
 			,ARTICLE_CD
 		FROM ARTICLE_ITEM
-		WHERE REGISTRANT_ID = #{REGISTRANT_ID}
-		AND ARTICLE_CD = #{ARTICLE_CD}
+		WHERE ARTICLE_CD = #{ARTICLE_CD}
 		AND USE_YN = 'Y'
+		ORDER BY FILE_SEQ
 	</select>
 
-
+	<delete id="fileUpdate" parameterType="java.util.HashMap">
+		DELETE FROM ARTICLE_ITEM
+		WHERE ARTICLE_CD = #{ARTICLE_CD}
+	</delete>
 </mapper>

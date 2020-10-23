@@ -27,6 +27,10 @@ public class ArticleService {
 	public List<?> getFileList(HashMap<String, Object> map) throws Exception{
 		return dao.getFileList(map);
 	}
+
+	public int fileDelete(HashMap<String, Object> reqMap) throws Exception{
+		return dao.fileDelete(reqMap);
+	}
 	
 	
 	
